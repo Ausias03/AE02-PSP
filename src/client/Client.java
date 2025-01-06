@@ -1,4 +1,4 @@
-package main;
+package client;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -10,6 +10,8 @@ import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import server.UserNameStatus;
 
 public class Client {
 

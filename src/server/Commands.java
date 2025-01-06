@@ -1,4 +1,4 @@
-package main;
+package server;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -44,7 +44,6 @@ public class Commands {
 		try {
 			PrintWriter pw = new PrintWriter(user.getSocket().getOutputStream(), true);
 			pw.println(names);
-			pw.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

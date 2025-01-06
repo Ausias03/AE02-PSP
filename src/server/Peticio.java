@@ -1,4 +1,4 @@
-package main;
+package server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -52,6 +52,15 @@ public class Peticio implements Runnable {
 			}
 		}
 	}
+	
+	public void readMessages(BufferedReader bf) throws Exception{
+		String message;
+		
+		do {
+			message = bf.readLine();
+			Commands.execute(message, this);
+		} while (!message.equals("exit"));
+	}
 
 	public void run() {
 		try {
@@ -64,6 +73,7 @@ public class Peticio implements Runnable {
 			ChannelSelection(bf, pw);
 			UserNameSelection(bf, pw);
 			System.err.println("SERVER >>> User " + userName + " has selected channel " + channel);
+			readMessages(bf);
 
 			pw.close();
 			bf.close();
