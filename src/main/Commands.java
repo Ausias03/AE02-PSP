@@ -84,7 +84,7 @@ public class Commands {
 		}
 	}
 	
-	private static void exit(Peticio user) {
+	private static synchronized void exit(Peticio user) {
 		try {
 			Servidor.clients.remove(user);
 			user.getSocket().close();
@@ -93,7 +93,7 @@ public class Commands {
 		}
 	}
 	
-	private static void channels(Peticio user) {
+	private static synchronized void channels(Peticio user) {
 		try {
 			PrintWriter pw = new PrintWriter(user.getSocket().getOutputStream(), true);
 			pw.println(Channels.getChannels());
