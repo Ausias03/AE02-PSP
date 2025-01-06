@@ -42,7 +42,7 @@ public class Peticio implements Runnable {
 		while (userName.length() < 0) {
 			String userNameInput = bf.readLine();
 			boolean userNameTaken = Servidor.isUserNameTaken(userNameInput);
-			pw.write(userNameTaken ? UserNameStatus.EMPTY.toString() : UserNameStatus.CHOSEN.toString());
+			pw.write(userNameTaken ? UserNameStatus.CHOSEN.toString() : UserNameStatus.EMPTY.toString());
 			if (!userNameTaken) {
 				userName = userNameInput;
 			}
