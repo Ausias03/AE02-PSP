@@ -13,7 +13,7 @@ public class Listener implements Runnable {
 
 	@Override
 	public void run() {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("mm/dd-hh:mm:ss");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd-hh:mm:ss");
 		try {
 			String message;
 			while ((message = br.readLine()) != null) {

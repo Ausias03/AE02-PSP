@@ -16,7 +16,7 @@ import server.UserNameStatus;
 public class Client {
 
 	private static int obtainChannel(String channels) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("mm/dd-hh:mm:ss");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd-hh:mm:ss");
 		int amountChannels = channels.split(",").length;
 
 		Scanner sc = new Scanner(System.in);
@@ -78,13 +78,14 @@ public class Client {
             senderThread.start();
             listenerThread.join();
             senderThread.join();
-
+            
 			br.close();
 			isr.close();
 			pw.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.exit(0);
 	}
 
 }

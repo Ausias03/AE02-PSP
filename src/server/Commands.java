@@ -9,10 +9,12 @@ public class Commands {
 		int channel = -1;
 		if(command.length() >= 7 && command.substring(0, 6).equals("@canal")) {
 			try {
-				channel = Integer.parseInt(command.substring(7, 8));
+				channel = Integer.parseInt(command.substring(6, 7));
 				channelCommand = command.substring(command.indexOf(' ') + 1);
 				command = "channel";
-			} catch (Exception e) {}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		switch(command) {

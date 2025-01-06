@@ -58,6 +58,7 @@ public class Peticio implements Runnable {
 		
 		do {
 			message = bf.readLine();
+			System.err.println("SERVER >>> " + userName + " (canal " + channel + ") >>> " + message);
 			Commands.execute(message, this);
 		} while (!message.equals("exit"));
 	}
