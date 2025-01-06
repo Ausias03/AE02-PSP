@@ -70,8 +70,6 @@ public class Peticio implements Runnable {
 			os.close();
 			isr.close();
 			is.close();
-			
-			Servidor.removeClient(channel, userName);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			System.err.println("SERVIDOR >>> Error.");

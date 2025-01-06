@@ -71,7 +71,7 @@ public class Client {
                 parentFrame.setAlwaysOnTop(true);
 				input = JOptionPane.showInputDialog(parentFrame, "Introduce 'exit' para cerrar", "Input",
 						JOptionPane.QUESTION_MESSAGE);
-				if (input != null && !input.equals("exit")) {
+				if (input != null) {
 					pw.println(input);
 				}
 			}
