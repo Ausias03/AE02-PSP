@@ -20,7 +20,7 @@ public class Sender implements Runnable {
 
     		String input = "";
     		while (input == null || !input.equals("exit")) {
-    			System.out.print("Press ENTER to send messages");
+    			System.out.println("Press ENTER to send messages");
     			String enter = sc.nextLine();
     			if (enter.isEmpty()) {
     				JFrame parentFrame = new JFrame();

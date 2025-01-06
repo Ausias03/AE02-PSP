@@ -17,7 +17,7 @@ public class Listener implements Runnable {
 		try {
 			String message;
 			while ((message = br.readLine()) != null) {
-				System.out.println(dateFormat.format(new Date()) + ": " + message);
+				System.out.println(System.lineSeparator() + dateFormat.format(new Date()) + ": " + message);
 			}
 		} catch (Exception e) {
 			System.out.println("Connection closed.");
