@@ -45,7 +45,7 @@ public class Peticio implements Runnable {
 	public void UserNameSelection(BufferedReader bf, PrintWriter pw) throws Exception {
 		while (userName.length() == 0) {
 			String userNameInput = bf.readLine();
-			boolean userNameTaken = Servidor.isUserNameTaken(userNameInput);
+			boolean userNameTaken = Servidor.isUserNameTaken(userNameInput, channel);
 			pw.println(userNameTaken ? UserNameStatus.CHOSEN.toString() : UserNameStatus.EMPTY.toString());
 			if (!userNameTaken) {
 				userName = userNameInput;

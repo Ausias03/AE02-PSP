@@ -42,6 +42,7 @@ public class Commands {
 			}
 		}
 		try {
+			names = names.substring(0, names.length() - 2);
 			PrintWriter pw = new PrintWriter(user.getSocket().getOutputStream(), true);
 			pw.println(names);
 		} catch (Exception e) {

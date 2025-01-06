@@ -8,9 +8,9 @@ import java.util.ArrayList;
 public class Servidor {
 	public static final ArrayList<Peticio> clients = new ArrayList<Peticio>();
 	
-	public static synchronized boolean isUserNameTaken(String userName) {
+	public static synchronized boolean isUserNameTaken(String userName, int channel) {
         for (Peticio p : clients) {
-            if (p.getUserName() != null && p.getUserName().equals(userName)) {
+            if (p.getUserName() != null && p.getUserName().equals(userName) && p.getChannel() == channel) {
                 return true;
             }
         }
