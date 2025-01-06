@@ -1,19 +1,69 @@
 package main;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
 public class Peticio implements Runnable {
-	Socket socket;
+	private Socket socket;
+	private int channel = -1;
+	private String userName;
+
+	public int getChannel() {
+		return channel;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
 
 	public Peticio(Socket socket) {
 		this.socket = socket;
 	}
 
+	public void ChannelSelection(BufferedReader bf, PrintWriter pw) throws Exception {
+		System.err.println("SERVER >>> Waiting for channel selection");
+		String channels = Channels.getChannels();
+		pw.write(channels);
 
-	public void run() {	}
+		String channelSelected = bf.readLine();
+		channel = Integer.getInteger(channelSelected);
+	}
+
+	public void UserNameSelection(BufferedReader bf, PrintWriter pw) throws Exception {
+		while (userName.length() < 0) {
+			String userNameInput = bf.readLine();
+			boolean userNameTaken = Servidor.isUserNameTaken(userNameInput);
+			pw.write(userNameTaken ? UserNameStatus.EMPTY.toString() : UserNameStatus.CHOSEN.toString());
+			if (!userNameTaken) {
+				userName = userNameInput;
+			}
+		}
+	}
+
+	public void run() {
+		try {
+			InputStream is = socket.getInputStream();
+			InputStreamReader isr = new InputStreamReader(is);
+			OutputStream os = socket.getOutputStream();
+			BufferedReader bf = new BufferedReader(isr);
+			PrintWriter pw = new PrintWriter(os, true);
+
+			ChannelSelection(bf, pw);
+			UserNameSelection(bf, pw);
+			System.err.println("SERVER >>> User " + userName + " has selected channel " + channel);
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			System.err.println("SERVIDOR >>> Error.");
+		}
+	}
 }

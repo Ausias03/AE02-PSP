@@ -3,13 +3,22 @@ package main;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-
-import main.Peticio;
+import java.util.ArrayList;
 
 public class Servidor {
+	private static ArrayList<Peticio> clients = new ArrayList<Peticio>();
+	
+	public static synchronized boolean isUserNameTaken(String userName) {
+        for (Peticio p : clients) {
+            if (p.getUserName() != null && p.getUserName().equals(userName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 	public static void main(String[] args) throws IOException {
-		System.err.println("SERVIDOR >>> Arranca el servidor, espera peticio");
+		System.err.println("SERVIDOR >>> Server launched, waiting for petition");
 		ServerSocket socketEscolta = null;
 		try {
 			socketEscolta = new ServerSocket(1234);
@@ -19,9 +28,10 @@ public class Servidor {
 		}
 		while (true) {
 			Socket connexio = socketEscolta.accept();
-			System.err.println("SERVIDOR >>> Connexio rebuda --> Llança fil classe Peticio");
+			System.err.println("SERVIDOR >>> Connection receivedd --> Creating new Thread");
 			
 			Peticio p = new Peticio(connexio);
+			clients.add(p);
 			Thread fil = new Thread(p);
 			fil.start();
 		}
