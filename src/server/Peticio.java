@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.SocketException;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -81,9 +82,11 @@ public class Peticio implements Runnable {
 			os.close();
 			isr.close();
 			is.close();
+		} catch (SocketException ex) {
+			System.err.println("CLIENT " + userName + " has closed the connection");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			System.err.println("SERVIDOR >>> Error.");
-		}
+		} 
 	}
 }

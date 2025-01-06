@@ -28,7 +28,7 @@ public class Servidor {
 		}
 		while (true) {
 			Socket connexio = socketEscolta.accept();
-			System.err.println("SERVIDOR >>> Connection receivedd --> Creating new Thread");
+			System.err.println("SERVIDOR >>> Connection received --> Creating new Thread");
 			
 			Peticio p = new Peticio(connexio);
 			clients.add(p);

@@ -21,6 +21,7 @@ public class Listener implements Runnable {
 			}
 		} catch (Exception e) {
 			System.out.println("Connection closed.");
+			System.exit(0);
 		}
 	}
 }

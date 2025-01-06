@@ -70,11 +70,11 @@ public class Commands {
 	
 	private static void channel(String message, int channel, Peticio user) {
 		for(Peticio p : Servidor.clients) {
-			if(p.getChannel() == channel) {
+			if(p.getChannel() == channel || p == user) {
 				try {
 					PrintWriter pw = new PrintWriter(p.getSocket().getOutputStream(), true);
 					if(p == user)
-						pw.println(String.format("@canal%d %s", user.getChannel(), message));
+						pw.println(String.format("@canal%d %s", channel, message));
 					else
 						pw.println(String.format("(canal%d, %s) >>> %s", user.getChannel(), user.getUserName(), message));
 				} catch (Exception e) {
