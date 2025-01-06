@@ -16,6 +16,14 @@ public class Servidor {
         }
         return false;
     }
+	
+	public static synchronized void removeClient(int channel, String userName) {
+		for (Peticio p : clients) {
+            if (p.getChannel() == channel && p.getUserName().equals(userName)) {
+                clients.remove(p);
+            }
+        }
+	}
 
 	public static void main(String[] args) throws IOException {
 		System.err.println("SERVIDOR >>> Server launched, waiting for petition");

@@ -61,6 +61,13 @@ public class Peticio implements Runnable {
 			UserNameSelection(bf, pw);
 			System.err.println("SERVER >>> User " + userName + " has selected channel " + channel);
 
+			pw.close();
+			bf.close();
+			os.close();
+			isr.close();
+			is.close();
+			
+			Servidor.removeClient(channel, userName);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			System.err.println("SERVIDOR >>> Error.");
