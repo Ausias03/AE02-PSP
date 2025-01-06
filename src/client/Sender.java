@@ -19,8 +19,8 @@ public class Sender implements Runnable {
     		Scanner sc = new Scanner(System.in);
 
     		String input = "";
-    		while (input == null || !input.equals("exit")) {
-    			System.out.println("Press ENTER to send messages");
+    		System.out.println("Press ENTER to send messages");
+    		while (input == null || !input.equals("exit")) {    			
     			String enter = sc.nextLine();
     			if (enter.isEmpty()) {
     				JFrame parentFrame = new JFrame();
