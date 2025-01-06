@@ -36,12 +36,14 @@ public class Client {
 		
 		System.out.print("Indica nombre de usuario: ");
 		String username = sc.nextLine();
-		pw.write(username);
+		pw.println(username);
+		String serverResponse = br.readLine();
 		
-		while(br.readLine().equals(UserNameStatus.CHOSEN.toString())) {
+		while(serverResponse.equals(UserNameStatus.CHOSEN.toString())) {
 			System.out.print("El usuario ya existe, indica otro: ");
 			username = sc.nextLine();
-			pw.write(username);
+			pw.println(username);
+			serverResponse = br.readLine();
 		}
 		
 		return username;
@@ -55,9 +57,9 @@ public class Client {
 			String channels = br.readLine();
 			
 			PrintWriter pw = new PrintWriter(socket.getOutputStream(), true);
-			pw.write(String.valueOf(obtainChannel(channels)));
+			pw.println(String.valueOf(obtainChannel(channels)));
 			obtainUsername(pw, br);
-			
+			System.out.println("acaba");
 			br.close();
 			isr.close();
 			pw.close();

@@ -15,7 +15,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 public class Peticio implements Runnable {
 	private Socket socket;
 	private int channel = -1;
-	private String userName;
+	private String userName = "";
 
 	public int getChannel() {
 		return channel;
@@ -32,17 +32,17 @@ public class Peticio implements Runnable {
 	public void ChannelSelection(BufferedReader bf, PrintWriter pw) throws Exception {
 		System.err.println("SERVER >>> Waiting for channel selection");
 		String channels = Channels.getChannels();
-		pw.write(channels);
+		pw.println(channels);
 
 		String channelSelected = bf.readLine();
-		channel = Integer.getInteger(channelSelected);
+		channel = Integer.parseInt(channelSelected);
 	}
 
 	public void UserNameSelection(BufferedReader bf, PrintWriter pw) throws Exception {
-		while (userName.length() < 0) {
+		while (userName.length() == 0) {
 			String userNameInput = bf.readLine();
 			boolean userNameTaken = Servidor.isUserNameTaken(userNameInput);
-			pw.write(userNameTaken ? UserNameStatus.CHOSEN.toString() : UserNameStatus.EMPTY.toString());
+			pw.println(userNameTaken ? UserNameStatus.CHOSEN.toString() : UserNameStatus.EMPTY.toString());
 			if (!userNameTaken) {
 				userName = userNameInput;
 			}
