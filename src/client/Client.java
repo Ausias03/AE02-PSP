@@ -61,25 +61,6 @@ public class Client {
 		return username;
 	}
 
-	private static void readMessages(PrintWriter pw, BufferedReader br) throws Exception {
-		Scanner sc = new Scanner(System.in);
-
-		String input = "";
-		while (input == null || !input.equals("exit")) {
-			System.out.print("Press ENTER to send messages");
-			String enter = sc.nextLine();
-			if (enter.isEmpty()) {
-				JFrame parentFrame = new JFrame();
-                parentFrame.setAlwaysOnTop(true);
-				input = JOptionPane.showInputDialog(parentFrame, "Introduce 'exit' para cerrar", "Input",
-						JOptionPane.QUESTION_MESSAGE);
-				if (input != null) {
-					pw.println(input);
-				}
-			}
-		}
-	}
-
 	public static void main(String[] args) {
 		try (Socket socket = new Socket("127.0.0.1", 1234)) {
 			InputStreamReader isr = new InputStreamReader(socket.getInputStream());
@@ -90,8 +71,13 @@ public class Client {
 			PrintWriter pw = new PrintWriter(socket.getOutputStream(), true);
 			pw.println(String.valueOf(obtainChannel(channels)));
 			obtainUsername(pw, br);
-
-			readMessages(pw, br);
+			
+			Thread listenerThread = new Thread(new Listener(br));
+            Thread senderThread = new Thread(new Sender(pw));
+            listenerThread.start();
+            senderThread.start();
+            listenerThread.join();
+            senderThread.join();
 
 			br.close();
 			isr.close();
