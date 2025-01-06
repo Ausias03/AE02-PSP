@@ -52,9 +52,6 @@ public class Commands {
 	
 	private static void message(String message, Peticio user) {
 		for(Peticio p : Servidor.clients) {
-			if(p == user)
-				continue;
-			
 			if(p.getChannel() == user.getChannel()) {
 				try {
 					PrintWriter pw = new PrintWriter(p.getSocket().getOutputStream(), true);
@@ -69,9 +66,6 @@ public class Commands {
 	
 	private static void channel(String message, int channel, Peticio user) {
 		for(Peticio p : Servidor.clients) {
-			if(p == user)
-				continue;
-			
 			if(p.getChannel() == channel) {
 				try {
 					PrintWriter pw = new PrintWriter(p.getSocket().getOutputStream(), true);
