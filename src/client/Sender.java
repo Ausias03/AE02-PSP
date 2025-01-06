@@ -3,6 +3,9 @@ package client;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 public class Sender implements Runnable {
 	private PrintWriter pw;
 
@@ -12,20 +15,25 @@ public class Sender implements Runnable {
 
     @Override
     public void run() {
-        try (Scanner scanner = new Scanner(System.in)) {
-            String message;
-            System.out.println("Write");
+        try {
+    		Scanner sc = new Scanner(System.in);
 
-            while (true) {
-                message = scanner.nextLine();
-                if ("salir".equalsIgnoreCase(message)) {
-                    System.out.println("Disconnecting");
-                    break;
-                }
-                pw.println(message);
-            }
+    		String input = "";
+    		while (input == null || !input.equals("exit")) {
+    			System.out.print("Press ENTER to send messages");
+    			String enter = sc.nextLine();
+    			if (enter.isEmpty()) {
+    				JFrame parentFrame = new JFrame();
+                    parentFrame.setAlwaysOnTop(true);
+    				input = JOptionPane.showInputDialog(parentFrame, "Introduce 'exit' para cerrar", "Input",
+    						JOptionPane.QUESTION_MESSAGE);
+    				if (input != null) {
+    					pw.println(input);
+    				}
+    			}
+    		}
         } catch (Exception e) {
-            System.out.println("ERROR.");
+            e.printStackTrace();
         }
     }
 }
