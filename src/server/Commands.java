@@ -57,7 +57,10 @@ public class Commands {
 			if(p.getChannel() == user.getChannel()) {
 				try {
 					PrintWriter pw = new PrintWriter(p.getSocket().getOutputStream(), true);
-					pw.println(message);
+					if(p == user)
+						pw.println(message);
+					else
+						pw.println(String.format("%s >>> %s", user.getUserName(), message));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -70,7 +73,10 @@ public class Commands {
 			if(p.getChannel() == channel) {
 				try {
 					PrintWriter pw = new PrintWriter(p.getSocket().getOutputStream(), true);
-					pw.println(message);
+					if(p == user)
+						pw.println(String.format("@canal%d %s", user.getChannel(), message));
+					else
+						pw.println(String.format("(canal%d, %s) >>> %s", user.getChannel(), user.getUserName(), message));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
