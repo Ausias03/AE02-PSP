@@ -17,6 +17,10 @@ public class Peticio implements Runnable {
 	private int channel = -1;
 	private String userName = "";
 
+	public Socket getSocket() {
+		return socket;
+	}
+	
 	public int getChannel() {
 		return channel;
 	}
