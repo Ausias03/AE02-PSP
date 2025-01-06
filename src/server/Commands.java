@@ -56,7 +56,6 @@ public class Commands {
 				try {
 					PrintWriter pw = new PrintWriter(p.getSocket().getOutputStream(), true);
 					pw.println(message);
-					pw.close();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -70,7 +69,6 @@ public class Commands {
 				try {
 					PrintWriter pw = new PrintWriter(p.getSocket().getOutputStream(), true);
 					pw.println(message);
-					pw.close();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -91,7 +89,6 @@ public class Commands {
 		try {
 			PrintWriter pw = new PrintWriter(user.getSocket().getOutputStream(), true);
 			pw.println(Channels.getChannels());
-			pw.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
