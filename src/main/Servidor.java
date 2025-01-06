@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class Servidor {
-	private static ArrayList<Peticio> clients = new ArrayList<Peticio>();
+	public static final ArrayList<Peticio> clients = new ArrayList<Peticio>();
 	
 	public static synchronized boolean isUserNameTaken(String userName) {
         for (Peticio p : clients) {
