@@ -8,13 +8,20 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import server.UserNameStatus;
 
+/**
+ * The Client class connects to a server, allows the user to select a channel, 
+ * choose a username, and facilitates the sending and receiving of messages.
+ */
 public class Client {
 
+    /**
+     * Prompts the user to select a channel from the available ones.
+     * 
+     * @param channels A comma-separated string of available channels.
+     * @return The selected channel number.
+     */
 	private static int obtainChannel(String channels) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd-hh:mm:ss");
 		int amountChannels = channels.split(",").length;
@@ -36,6 +43,14 @@ public class Client {
 		return channel;
 	}
 
+    /**
+     * Prompts the user to enter a username and ensures it is valid and unique.
+     * 
+     * @param pw The PrintWriter to send the username to the server.
+     * @param br The BufferedReader to receive the server's response.
+     * @return The chosen username.
+     * @throws Exception If an error occurs while communicating with the server.
+     */
 	private static String obtainUsername(PrintWriter pw, BufferedReader br) throws Exception {
 		Scanner sc = new Scanner(System.in);
 
@@ -51,16 +66,27 @@ public class Client {
 		pw.println(username);
 		String serverResponse = br.readLine();
 
-		while (serverResponse.equals(UserNameStatus.CHOSEN.toString())) {
+		while (username.contains(" ") || serverResponse.equals(UserNameStatus.CHOSEN.toString())) {
 			System.out.print("El usuario ya existe, indica otro: ");
 			username = sc.nextLine();
-			pw.println(username);
-			serverResponse = br.readLine();
+			if(username.contains(" ")) {
+				System.out.println("EL NOMBRE DE USUARIO NO PUEDE TENER ESPACIOS!!!");
+			}
+			else {
+				pw.println(username);
+				serverResponse = br.readLine();				
+			}
 		}
 
 		return username;
 	}
 
+    /**
+     * Main method to establish connection with the server, allow the user to choose a channel 
+     * and username, and start threads for sending and receiving messages.
+     * 
+     * @param args Command-line arguments.
+     */
 	public static void main(String[] args) {
 		try (Socket socket = new Socket("127.0.0.1", 1234)) {
 			InputStreamReader isr = new InputStreamReader(socket.getInputStream());

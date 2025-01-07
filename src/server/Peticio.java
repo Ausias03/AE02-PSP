@@ -1,39 +1,74 @@
 package server;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.SocketException;
 
-import org.apache.commons.codec.digest.DigestUtils;
-
+/**
+ * The Peticio class represents a client connection and handles user input,
+ * channel selection, and message processing for each connected user.
+ */
 public class Peticio implements Runnable {
+    /**
+     * The socket used to communicate with the client.
+     */
 	private Socket socket;
+    /**
+     * The channel to which the user is assigned.
+     */
 	private int channel = -1;
+    /**
+     * The username chosen by the user.
+     */
 	private String userName = "";
 
+    /**
+     * Gets the socket associated with this client.
+     * 
+     * @return The client's socket.
+     */
 	public Socket getSocket() {
 		return socket;
 	}
 	
+    /**
+     * Gets the channel assigned to the user.
+     * 
+     * @return The user's channel.
+     */
 	public int getChannel() {
 		return channel;
 	}
 
+    /**
+     * Gets the username of the user.
+     * 
+     * @return The user's username.
+     */
 	public String getUserName() {
 		return userName;
 	}
 
+    /**
+     * Constructor to initialize the Peticio with a client socket.
+     * 
+     * @param socket The client socket.
+     */
 	public Peticio(Socket socket) {
 		this.socket = socket;
 	}
 
+    /**
+     * Handles the process of selecting a channel for the user.
+     * 
+     * @param bf The BufferedReader to read client input.
+     * @param pw The PrintWriter to send output to the client.
+     * @throws Exception If an error occurs during channel selection.
+     */
 	public void ChannelSelection(BufferedReader bf, PrintWriter pw) throws Exception {
 		System.err.println("SERVER >>> Waiting for channel selection");
 		String channels = Channels.getChannels();
@@ -43,6 +78,13 @@ public class Peticio implements Runnable {
 		channel = Integer.parseInt(channelSelected);
 	}
 
+    /**
+     * Handles the process of selecting a username for the user.
+     * 
+     * @param bf The BufferedReader to read client input.
+     * @param pw The PrintWriter to send output to the client.
+     * @throws Exception If an error occurs during username selection.
+     */
 	public void UserNameSelection(BufferedReader bf, PrintWriter pw) throws Exception {
 		while (userName.length() == 0) {
 			String userNameInput = bf.readLine();
@@ -54,6 +96,12 @@ public class Peticio implements Runnable {
 		}
 	}
 	
+    /**
+     * Reads and processes messages sent by the client.
+     * 
+     * @param bf The BufferedReader to read client input.
+     * @throws Exception If an error occurs while reading messages.
+     */
 	public void readMessages(BufferedReader bf) throws Exception{
 		String message;
 		
@@ -64,6 +112,10 @@ public class Peticio implements Runnable {
 		} while (!message.equals("exit"));
 	}
 
+    /**
+     * The main run method to handle the entire client connection process.
+     * It manages the channel selection, username selection, and message reading.
+     */
 	public void run() {
 		try {
 			InputStream is = socket.getInputStream();

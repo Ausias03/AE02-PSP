@@ -6,13 +6,29 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+/**
+ * The Sender class implements the Runnable interface to send messages to the server.
+ * It allows the user to enter and send messages, including an 'exit' command to close the connection.
+ */
 public class Sender implements Runnable {
+    /**
+     * PrintWriter used to send messages to the server.
+     */
 	private PrintWriter pw;
 
+    /**
+     * Constructor to initialize the Sender with a PrintWriter.
+     * 
+     * @param pw The PrintWriter to send messages to the server.
+     */
     public Sender(PrintWriter pw) {
         this.pw = pw;
     }
 
+    /**
+     * Prompts the user to enter a message and sends it to the server.
+     * The loop continues until the user enters "exit".
+     */
     @Override
     public void run() {
         try {

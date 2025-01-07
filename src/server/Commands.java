@@ -3,7 +3,17 @@ package server;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * The Commands class handles the execution of various commands issued by users, 
+ * such as retrieving user information, messaging, channel operations, and more.
+ */
 public class Commands {
+    /**
+     * Executes the given command for the specified user.
+     * 
+     * @param command The command to execute.
+     * @param user The user who issued the command.
+     */
 	public static void execute(String command, Peticio user) {
 		String channelCommand = "";
 		int channel = -1;
@@ -36,6 +46,11 @@ public class Commands {
 		}
 	}
 	
+    /**
+     * Sends a list of users in the same channel as the given user.
+     * 
+     * @param user The user who requested the list of users.
+     */
 	private static void whoIs(Peticio user) {
 		String names = "";
 		for(Peticio p : Servidor.clients) {
@@ -52,6 +67,12 @@ public class Commands {
 		}
 	}
 	
+    /**
+     * Sends a message to all users in the same channel as the given user.
+     * 
+     * @param message The message to send.
+     * @param user The user who sent the message.
+     */
 	private static void message(String message, Peticio user) {
 		for(Peticio p : Servidor.clients) {
 			if(p.getChannel() == user.getChannel()) {
@@ -68,6 +89,13 @@ public class Commands {
 		}
 	}
 	
+    /**
+     * Sends a message to all users in a specific channel.
+     * 
+     * @param message The message to send.
+     * @param channel The channel where the message will be sent.
+     * @param user The user who sent the message.
+     */
 	private static void channel(String message, int channel, Peticio user) {
 		for(Peticio p : Servidor.clients) {
 			if(p.getChannel() == channel || p == user) {
@@ -84,6 +112,11 @@ public class Commands {
 		}
 	}
 	
+    /**
+     * Removes the user from the server and closes their socket connection.
+     * 
+     * @param user The user to remove from the server.
+     */
 	private static synchronized void exit(Peticio user) {
 		try {
 			Servidor.clients.remove(user);
@@ -93,6 +126,11 @@ public class Commands {
 		}
 	}
 	
+    /**
+     * Sends the list of available channels to the user.
+     * 
+     * @param user The user who requested the list of channels.
+     */
 	private static synchronized void channels(Peticio user) {
 		try {
 			PrintWriter pw = new PrintWriter(user.getSocket().getOutputStream(), true);

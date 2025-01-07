@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"server","l":"Channels"},{"p":"client","l":"Client"},{"p":"server","l":"Commands"},{"p":"client","l":"Listener"},{"p":"server","l":"Peticio"},{"p":"client","l":"Sender"},{"p":"server","l":"Servidor"},{"p":"server","l":"UserNameStatus"}];updateSearchResults();
